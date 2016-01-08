@@ -11,3 +11,12 @@ but only one person developing, and can had problem.
 # No Source Code?
 Yes. Because really buggy and confuse your head!
 Please wait more days...
+
+# What are working?
+[ ]Ranking Listing
+[x]Bancho Login
+[x]MySQL
+[ ]MultiPlayer
+[x]Web Service
+[ ]Ban, Supporter
+[ ]Choose any nickname
