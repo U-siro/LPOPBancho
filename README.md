@@ -13,10 +13,10 @@ Yes. Because really buggy and confuse your head!
 Please wait more days...
 
 # What are working?
-[ ]Ranking Listing
-[x]Bancho Login
-[x]MySQL
-[ ]MultiPlayer
-[x]Web Service
-[ ]Ban, Supporter
-[ ]Choose any nickname
+- [ ] Ranking Listing
+- [x] Bancho Login
+- [x] MySQL
+- [ ] MultiPlayer
+- [x] Web Service
+- [ ] Ban, Supporter
+- [ ] Choose any nickname
