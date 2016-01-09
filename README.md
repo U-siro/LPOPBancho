@@ -8,12 +8,26 @@ LPOPBancho Issue Tracker and source code.
 [Report](https://github.com/Castar/LPOPBancho/issues) issues that need to get fixed!
 But only two people are developing this, and can delayed.
 
+# How to use?
+Just run `Bancho.cmd`. This will check node.js, install modules, and Run the LPOPBancho.
+
 # What are working?
-- [ ] Ranking Listing
+- [ ] Ranking Listings
+- [ ] Submit to rankings
 - [x] Bancho Login
 - [x] MySQL
-- [ ] MultiPlayer
-- [x] Web Service
-- [ ] Ban, Supporter
-- [ ] Choose any nickname
+- [ ] Multi-player
+- [x] Web Service(Not completely done)
+- [ ] Bans
+- [ ] Change username
 - [ ] Forums
+- [ ] Player Supporter
+- [ ] Plugins
+- [ ] Bancho Chat Moderator, Bancho Administrator
+- [ ] Chat, Commands
+- [ ] IRC Intergration
+- [ ] osu!direct
+- [ ] Parse messages from IRC server and post them on Bancho chat(Idea)
+- [ ] Spectator
+- [ ] Friend List
+- [ ] Player Mute
