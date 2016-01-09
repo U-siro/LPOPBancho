@@ -10,11 +10,6 @@ var bodyParser = require('body-parser');
 var packets=[];
 var failed;
 
-console.log("Reading Packets");
-// Packets
-
-
-
 console.log("Enabling PHP");
 var phpnode = require('php-node')({bin:"C:\\xampp\\php\\php.exe"});
 app.engine('php', phpnode);
@@ -73,10 +68,7 @@ connection.connect(function(err) {
       console.log("MySQL Successfully Connected");
     }
 });
-////var compress = require('compression');
 
-//app.use(compress());  
-console.log(packets['failed']);
 app.post('/', function(req, res) {
 console.log("Bancho Request");
 console.log(req.rawBody);
