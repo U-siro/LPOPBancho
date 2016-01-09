@@ -1,4 +1,3 @@
-// lovelive!
 console.log("Defining variable and modules");
 var express = require('express');
 var app = express();
@@ -10,18 +9,18 @@ var bodyParser = require('body-parser');
 
 //MySQL Server
 var connection = mysql.createConnection({
-  host    :'ranking.lpop.me',
+  host : 'ranking.lpop.me',
   port : 3306,
   user : 'root',
   password : '***REMOVED***',
-  database:'osuserve_osuserver'
+  database :'osuserve_osuserver'
 });
 
-// Your Bancho Server Website
+//Your Bancho Server Website
 var site = "http://cafe.naver.com/lpopbancho";
 
 //debug flag
-var debug = 1;
+var debug = 0;
 
 console.log("Defining Functions");
 function rawBody(req, res, next) {
@@ -111,8 +110,8 @@ res.set("cho-token","lpopbancho");
 res.set("cho-protocol","19");
 logc("Bancho Request");
 logc(req.rawBody);
-var reqcon=req.rawBody;
-reqcon=reqcon.split(/\n/);
+var reqcon = req.rawBody;
+reqcon = reqcon.split(/\n/);
 
 if(req.get("osu-token")) {
   res.send("");
@@ -121,19 +120,18 @@ if(req.get("osu-token")) {
 
 var sql = "SELECT * FROM users_accounts where osuname='" + reqcon[0] + "' and passwordHash='" + reqcon[1] + "';"
 
-connection.query(sql,function(err, rows) {
+connection.query(sql, function(err, rows) {
 
 if(!rows[0]) { 
-
-res.sendFile('./failed.raw');
-logc("Login Failed Packet Successfully Saved!");
+    res.sendFile(__dirname + '/failed.raw');
+    logc("Login Failed Packet Successfully Saved!");
     logc("Login Failed");
     return;
   } else {
-    fs.readFile('./login.raw', 'utf8', function (err, data) {
+    fs.readFile(__dirname + '/login.raw', 'utf8', function (err, data) {
     var out = data;
     logc(reqcon[0]);
-    out=replaceAll(out, "LPOPYui", reqcon[0]);
+    out = replaceAll(out, "LPOPYui", reqcon[0]);
     res.send(out);
   if(debug) {
     logc("Send to client: " + out);
