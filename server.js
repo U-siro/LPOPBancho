@@ -2,27 +2,35 @@
 console.log("Defining variable and modules");
 var express = require('express');
 var app = express();
-var users=new Array();
+var users = new Array();
 var fs = require('fs');
 var mysql = require('mysql');
 var conv = require('binstring');
 var bodyParser = require('body-parser');
-// Your BanchoServer Website
+
+//MySQL Server
+var connection = mysql.createConnection({
+  host    :'ranking.lpop.me',
+  port : 3306,
+  user : 'root',
+  password : '***REMOVED***',
+  database:'osuserve_osuserver'
+});
+
+// Your Bancho Server Website
 var site = "http://cafe.naver.com/lpopbancho";
 
 //debug flag
 var debug = 1;
-
-console.log("PHP is deprecated, don't load php anymore.");
 
 console.log("Defining Functions");
 function rawBody(req, res, next) {
   req.setEncoding('utf8');
   req.rawBody = '';
   req.on('data', function(chunk) {
-    req.rawBody += chunk;
+  req.rawBody += chunk;
   });
-  req.on('end', function(){
+  req.on('end', function() {
     next();
   });
 }
@@ -88,18 +96,11 @@ logc("Get " + filename + "from " + ip);
 logc("Express.js Preparing..");
 app.use(rawBody);
 logc("MySQL Connecting..");
-  var connection = mysql.createConnection({
-    host    :'ranking.lpop.me',
-    port : 3306,
-    user : 'root',
-    password : '***REMOVED***',
-    database:'osuserve_osuserver'
-});
 connection.connect(function(err) {
     if (err) {
-        console.error('MySQL Connection Error');
-        console.error(err);
-        throw err;
+      console.error('MySQL Connection Error');
+      console.error(err);
+      throw err;
     } else {
       logc("MySQL Successfully Connected");
     }
@@ -118,9 +119,9 @@ if(req.get("osu-token")) {
   return;
 }
 
-var sql="SELECT * FROM users_accounts where osuname='" + reqcon[0] + "' and passwordHash='" + reqcon[1] + "';"
+var sql = "SELECT * FROM users_accounts where osuname='" + reqcon[0] + "' and passwordHash='" + reqcon[1] + "';"
 
-connection.query(sql,function(err,rows) {
+connection.query(sql,function(err, rows) {
 
 if(!rows[0]) { 
 
@@ -129,13 +130,13 @@ logc("Login Failed Packet Successfully Saved!");
     logc("Login Failed");
     return;
   } else {
-    fs.readFile('./login.raw', 'utf8', function (err,data) {
-  var out=data;
-  logc(reqcon[0]);
-  out=replaceAll(out, "LPOPYui", reqcon[0]);
-  res.send(out);
+    fs.readFile('./login.raw', 'utf8', function (err, data) {
+    var out = data;
+    logc(reqcon[0]);
+    out=replaceAll(out, "LPOPYui", reqcon[0]);
+    res.send(out);
   if(debug) {
-  logc("Send to client: " + out);
+    logc("Send to client: " + out);
   }
 });
 }
