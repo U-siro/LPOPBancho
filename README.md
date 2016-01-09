@@ -16,3 +16,4 @@ but only one person developing, and can had problem.
 - [x] Web Service
 - [ ] Ban, Supporter
 - [ ] Choose any nickname
+- [ ] Forums
