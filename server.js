@@ -8,10 +8,10 @@ var mysql = require('mysql');
 var conv = require('binstring');
 var bodyParser = require('body-parser');
 // Your BanchoServer Website
-var site="http://cafe.naver.com/lpopbancho";
+var site = "http://cafe.naver.com/lpopbancho";
 
 //debug flag
-var debug=1;
+var debug = 1;
 
 console.log("PHP is deprecated, don't load php anymore.");
 
@@ -86,7 +86,7 @@ logc("Get " + filename + "from " + ip);
 }
 
 logc("Express.js Preparing..");
-  app.use(rawBody);
+app.use(rawBody);
 logc("MySQL Connecting..");
   var connection = mysql.createConnection({
     host    :'ranking.lpop.me',
