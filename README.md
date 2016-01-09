@@ -6,7 +6,7 @@ LPOPBancho Issue Tracker and source code(comming soon)
 
 # Problem?
 [Report](https://github.com/Castar/LPOPBancho/issues) to get fixed!
-but only one person developing, and can had problem.
+but only two person developing, and can delayed.
 
 # What are working?
 - [ ] Ranking Listing
