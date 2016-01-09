@@ -10,10 +10,7 @@ var bodyParser = require('body-parser');
 var packets=[];
 var failed;
 
-console.log("Enabling PHP");
-var phpnode = require('php-node')({bin:"C:\\xampp\\php\\php.exe"});
-app.engine('php', phpnode);
-app.set('view engine', 'php');
+console.log("PHP is deprecated, so we don't load php anymore");
 
 console.log("Defining Functions");
 function rawBody(req, res, next) {
@@ -80,7 +77,6 @@ reqcon=reqcon.split(/\n/);
     res.send("");
     return;
   }
-//res.set("Content-Encoding","gzip");
 
 res.set("cho-token","yomama");
 res.set("cho-protocol","19");
@@ -103,11 +99,6 @@ console.log(reqcon[0]);
 });
 }
 });
-
-
-    //res.send(".................`...K..........G..........H..\n.............S......`.....LPOPYui......................`.............................................S..!.........CassandraBot...............S............Connor...........-...S......}.....Doomsday...........4...`..\n.........`...Y..........@........#osu@........#newsA........#osu..Main channel..A..F.....#news.;This will contain announcements and info, while beta lasts......:.....CassandraBot. Holy shit dude, it's working! :D..#osu.......'.....CassandraBot.\nThanks JustM3..#osu.......=.....CassandraBot.#Checkout #news for more information..#osu.......Z.....CassandraBot.?Bancho implementation is a go! Thanks to JustM3 for creating it..#news.......I.....CassandraBot..Chat doesn't work right now, but it's a start...#news.............Connor..<3..LPOPYui....");
-//res.send("error: pass");
-//res.sendFile("C:\\Users\\lpopvm\\Desktop\\Bancho\\login.raw");
 });
 
 
@@ -120,5 +111,5 @@ app.post('web/osu-submit-modular.php', function(req, res) {
 });
 
 var server = app.listen(80, function() {
-    console.log('Listening on port %d', server.address().port);
+    console.log('Bancho and Ranking Server listening on %d', server.address().port);
 });
