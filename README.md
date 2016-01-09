@@ -8,10 +8,6 @@ LPOPBancho Issue Tracker and source code(comming soon)
 [Report](https://github.com/Castar/LPOPBancho/issues) to get fixed!
 but only one person developing, and can had problem.
 
-# No Source Code?
-Yes. Because really buggy and confuse your head!
-Please wait more days...
-
 # What are working?
 - [ ] Ranking Listing
 - [x] Bancho Login
