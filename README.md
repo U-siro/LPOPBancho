@@ -27,7 +27,6 @@ Just run `Bancho.cmd`. This will check node.js, install modules, and Run the LPO
 - [ ] Chat, Commands
 - [ ] IRC Intergration
 - [ ] osu!direct
-- [ ] Parse messages from IRC server and post them on Bancho chat(Idea)
 - [ ] Spectator
 - [ ] Friend List
 - [ ] Player Mute
