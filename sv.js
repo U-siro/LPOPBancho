@@ -1,3 +1,4 @@
+// lovelive!
 console.log("Defining variable and modules");
 var express = require('express');
 var app = express();
@@ -5,16 +6,13 @@ var users=new Array();
 var fs = require('fs');
 var mysql = require('mysql');
 var conv = require('binstring');
+var bodyParser = require('body-parser');
 var packets=[];
 var failed;
 
 console.log("Reading Packets");
 // Packets
-fs.readFile('C:\\Users\\lpopvm\\Desktop\\Bancho\\login.raw', 'utf8', function (err,data) {
-packets.push(conv(data,{in:'binary', out:'buffer'}));
 
-console.log("Login Packet Successfully Saved!");
-});
 
 
 console.log("Enabling PHP");
@@ -57,7 +55,7 @@ function replaceAll(str, searchStr, replaceStr) {
 
 console.log("Express.js Preparing..");
   app.use(rawBody);
-app.set('views', "C:\\Users\\lpopme\\Downloads\\Server\\Server\\");
+//app.set('views', "C:\\Users\\lpopme\\Downloads\\Server\\Server\\");
 console.log("MySQL Connecting..");
   var connection = mysql.createConnection({
     host    :'ranking.lpop.me',
@@ -90,10 +88,6 @@ reqcon=reqcon.split(/\n/);
     res.send("");
     return;
   }
-if(reqcon[0]=="lockme"){
-  res.sendFile('C:\\Users\\lpopvm\\Desktop\\Bancho\\lock.raw');
-  return;
-}
 //res.set("Content-Encoding","gzip");
 
 res.set("cho-token","yomama");
@@ -103,17 +97,19 @@ res.set("cho-protocol","19");
 
   if(!rows[0]){ 
 
-res.sendFile('C:\\Users\\lpopvm\\Desktop\\Bancho\\failed.raw');
+res.sendFile('./failed.raw');
 console.log("Login Failed Packet Successfully Saved!");
     console.log("Login Failed");
     return;
   } else {
-  var out=conv(packets[0],{in:'buffer', out:'binary'});
+    fs.readFile('./login.raw', 'utf8', function (err,data) {
+  var out=data;
 console.log(reqcon[0]);
   out=replaceAll(out,"LPOPYui",reqcon[0]);
   res.send(out);
   console.log(out);
-  }
+});
+}
 });
 
 
@@ -123,18 +119,11 @@ console.log(reqcon[0]);
 });
 
 
-app.all('*', function(req, res) {
-/*
-res.set("Location","http://ranking.lpop.me:8021" + req.originalUrl);
-return res.end(res.writeHead(302, 'Redirect To Ranking'));
-        console.log("Handled Ranking Request: http://ranking.lpop.me:8021" + req.originalUrl);
-        */
-var temp=req.originalUrl.substring(1);
-if(temp.indexOf('.php') >= 0){
-  res.render(temp.split(".")[0]);
-} else {
-  res.sendFile("C:\\Users\\lpopme\\Downloads\\Server\\Server\\" + temp);
-}
+app.get('*', function(req, res) {
+res.send("We Don't accept any web request because rebuilding html");
+});
+//ranking submit
+app.post('web/osu-submit-modular.php', function(req, res) {
 
 });
 
