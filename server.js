@@ -70,24 +70,23 @@ connection.connect(function(err) {
 });
 
 app.post('/', function(req, res) {
+res.set("cho-token","yomama");
+res.set("cho-protocol","19");
 console.log("Bancho Request");
 console.log(req.rawBody);
 var reqcon=req.rawBody;
 reqcon=reqcon.split(/\n/);
 
-  if(req.get("osu-token")){
+if(req.get("osu-token")) {
+  res.send("");
+  return;
+}
 
-    res.send("");
-    return;
-  }
-//res.set("Content-Encoding","gzip");
+var sql="SELECT * FROM users_accounts where osuname='" + reqcon[0] + "' and passwordHash='" + reqcon[1] + "';"
 
-res.set("cho-token","yomama");
-res.set("cho-protocol","19");
-        var sql="SELECT * FROM users_accounts where osuname='" + reqcon[0] + "' and passwordHash='" + reqcon[1] + "';"
-    connection.query(sql,function(err,rows){
+connection.query(sql,function(err,rows) {
 
-  if(!rows[0]){ 
+if(!rows[0]) { 
 
 res.sendFile('./failed.raw');
 console.log("Login Failed Packet Successfully Saved!");
@@ -105,7 +104,7 @@ console.log(reqcon[0]);
 });
 
 
-    //res.send(".................`...K..........G..........H..\n.............S......`.....LPOPYui......................`.............................................S..!.........CassandraBot...............S............Connor...........-...S......}.....Doomsday...........4...`..\n.........`...Y..........@........#osu@........#newsA........#osu..Main channel..A..F.....#news.;This will contain announcements and info, while beta lasts......:.....CassandraBot. Holy shit dude, it's working! :D..#osu.......'.....CassandraBot.\nThanks JustM3..#osu.......=.....CassandraBot.#Checkout #news for more information..#osu.......Z.....CassandraBot.?Bancho implementation is a go! Thanks to JustM3 for creating it..#news.......I.....CassandraBot..Chat doesn't work right now, but it's a start...#news.............Connor..<3..LPOPYui....");
+//res.send(".................`...K..........G..........H..\n.............S......`.....LPOPYui......................`.............................................S..!.........CassandraBot...............S............Connor...........-...S......}.....Doomsday...........4...`..\n.........`...Y..........@........#osu@........#newsA........#osu..Main channel..A..F.....#news.;This will contain announcements and info, while beta lasts......:.....CassandraBot. Holy shit dude, it's working! :D..#osu.......'.....CassandraBot.\nThanks JustM3..#osu.......=.....CassandraBot.#Checkout #news for more information..#osu.......Z.....CassandraBot.?Bancho implementation is a go! Thanks to JustM3 for creating it..#news.......I.....CassandraBot..Chat doesn't work right now, but it's a start...#news.............Connor..<3..LPOPYui....");
 //res.send("error: pass");
 //res.sendFile("C:\\Users\\lpopvm\\Desktop\\Bancho\\login.raw");
 });
