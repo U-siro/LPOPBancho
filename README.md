@@ -2,10 +2,10 @@
 LPOPBancho Issue Tracker and source code(Coming Soon)
 
 # Download?
-<a href="https://raw.githubusercontent.com/Castar/LPOPBancho/master/LPOPBanchoLauncher.cmd" download>Download</a> and Run it. You need to have original and unpatched osu! client.
+<a href="https://raw.githubusercontent.com/Castar/LPOPBancho/master/LPOPBanchoLauncher.cmd" download>Download</a> and run it. You need to have an original and unpatched osu! client.
 
 # Problem?
-[Report](https://github.com/Castar/LPOPBancho/issues) to get fixed!
+[Report](https://github.com/Castar/LPOPBancho/issues) issues that need to get fixed!
 But only two people are developing this, and can delayed.
 
 # What are working?
