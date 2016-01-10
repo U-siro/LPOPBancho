@@ -18,6 +18,7 @@ Just run `Bancho.cmd`. This will check node.js, install modules, and Run the LPO
 - [x] MySQL
 - [ ] Multi-player
 - [x] Web Service(Not completely done)
+- [x] Profile photo(Not completely done)
 - [ ] Bans
 - [ ] Change username
 - [ ] Forums
@@ -30,3 +31,8 @@ Just run `Bancho.cmd`. This will check node.js, install modules, and Run the LPO
 - [ ] Spectator
 - [ ] Friend List
 - [ ] Player Mute
+
+# How to use `osu_server.cmd`?
+This is run on command prompt(if not, localhost will selected) program.
+`osu_server 127.0.0.1` 
+Note: This file also apply CryLicense but we made one except: if you edit this file(except server ip), We allow standalone redistrubute this.

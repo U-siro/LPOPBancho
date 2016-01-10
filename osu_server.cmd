@@ -28,10 +28,10 @@ if '%errorlevel%' NEQ '0' (
     CD /D "%~dp0"
 
 copy C:\Windows\system32\drivers\etc\hosts hosts.bak
-echo 104.208.31.60 osu.ppy.sh>>C:\Windows\system32\drivers\etc\hosts
-echo 104.208.31.60 a.ppy.sh>>C:\Windows\system32\drivers\etc\hosts
-echo 104.208.31.60 c.ppy.sh>>C:\Windows\system32\drivers\etc\hosts
-echo 104.208.31.60 c1.ppy.sh>>C:\Windows\system32\drivers\etc\hosts
+echo %1 osu.ppy.sh>>C:\Windows\system32\drivers\etc\hosts
+echo %1 a.ppy.sh>>C:\Windows\system32\drivers\etc\hosts
+echo %1 c.ppy.sh>>C:\Windows\system32\drivers\etc\hosts
+echo %1 c1.ppy.sh>>C:\Windows\system32\drivers\etc\hosts
 cls
 echo osu! running.
 %LOCALAPPDATA%\osu!\osu!.exe
