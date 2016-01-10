@@ -86,6 +86,13 @@ logc("Get " + filename + "from " + ip);
 function post_logc(filename, ip){
 logc("Get " + filename + "from " + ip); 
 }
+function toHex(str) {
+  var hex = '';
+  for(var i=0;i<str.length;i++) {
+    hex += ''+str.charCodeAt(i).toString(16);
+  }
+  return hex;
+}
 
 logc("Express.js Preparing..");
 app.use(rawBody);
@@ -111,6 +118,7 @@ app.post('/', function(req, res) {
 res.set("cho-protocol","19");
   if(config['debug']) {
     logc("Received from client: " + req.rawBody);
+    logc("Received from client with hex: " + toHex(req.rawBody));
   }
 var reqcon = req.rawBody.split(/\n/);
 
