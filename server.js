@@ -53,7 +53,15 @@ function replaceAll(str, searchStr, replaceStr) {
 
     return str.split(searchStr).join(replaceStr);
 }
+function hex2bin(hex)
+{
+    var bytes = [], str;
 
+    for(var i=0; i< hex.length-1; i+=2)
+        bytes.push(parseInt(hex.substr(i, 2), 16));
+
+    return String.fromCharCode.apply(String, bytes);    
+}
 function getDateTime() {
 
     var date = new Date();
@@ -165,20 +173,21 @@ res.set("cho-token",usertoken);
 var sql = "SELECT * FROM users_accounts where osuname='" + reqcon[0] + "' and passwordHash='" + reqcon[1] + "';"
 
 connection.query(sql, function(err, rows) {
-
 if(!rows[0]) { 
-    res.sendFile(__dirname + '/failed.raw');
+    res.send(hex2bin("05000004000000ffffffff"));
     logc("Login Failed");
     return;
   } else {
-    fs.readFile(__dirname + '/login.raw', 'utf8', function (err, data) {
-    var out = data;
-    out = replaceAll(out, "LPOPYui", nickname);
+    var out = "EDIT00040000000000000005000004000000600200004b000004000000130000004700000400000001000000480000";
+    out = replaceAll(out, "EDIT", (0001).toString(16));
+      if(config['debug']) {
+    logc("original Send to client: " + out);
+  }
+    out = hex2bin(out);
     res.send(out);
   if(config['debug']) {
     logc("Send to client: " + out);
   }
-});
 }
 });
 });
