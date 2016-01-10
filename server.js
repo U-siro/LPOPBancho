@@ -6,6 +6,7 @@ var tokentouser = new Array();
 var fs = require('fs');
 var mysql = require('mysql');
 var bodyParser = require('body-parser');
+var SilenceStat;
 console.log("Reading config..");
 try {
 var config = JSON.parse(fs.readFileSync("config.json","utf8"));
@@ -14,6 +15,9 @@ var config = JSON.parse(fs.readFileSync("config.json","utf8"));
   console.log("Please verify your config.json");
   console.log(e);
   return;
+}
+if(config['SilenceStat']){
+SilenceStat=1;
 }
 console.log("Config Loaded!");
 
@@ -93,6 +97,22 @@ function toHex(str) {
   }
   return hex;
 }
+function isNormalPacket(hexpacket){
+  var packet=toHex(hexpacket);
+  if(packet="40000000"){
+    return true;
+  } else {
+    return false;
+  }
+}
+function isLogoutPacket(hexpacket){
+  var packet=toHex(hexpacket);
+  if(packet="20040000000"){
+    return true;
+  } else {
+    return false;
+  }
+}
 
 logc("Express.js Preparing..");
 app.use(rawBody);
@@ -114,18 +134,28 @@ connection.connect(function(err) {
 
 
 app.post('/', function(req, res) {
-
+var rawpost=req.rawBody;
 res.set("cho-protocol","19");
   if(config['debug']) {
-    logc("Received from client: " + req.rawBody);
-    logc("Received from client with hex: " + toHex(req.rawBody));
+    if(!isNormalPacket(rawpost)){
+    logc("Received from client: " + rawpost);
+    logc("Received from client with hex: " + toHex(rawpost));
+  }
   }
 var reqcon = req.rawBody.split(/\n/);
 
 if(req.get("osu-token")) {
   var token=req.get("osu-token");
   var tusername=tokentouser[token];
+      if(!isNormalPacket(rawpost)){
   logc("Bancho Request Received from " + tusername + "(" + token + ")");
+if(isLogoutPacket(rawpost)){
+  var tusername=tokentouser[token];
+  logc("Player " + nickname + " leave the game");
+}
+
+}
+
   res.send("");
 
   return;
@@ -133,7 +163,7 @@ if(req.get("osu-token")) {
 var nickname=reqcon[0];
 var usertoken=makeid();
 tokentouser[usertoken]=nickname;
-logc(usertoken + " = " + nickname);
+logc("Player " + nickname + " joined the game with token " + usertoken);
 res.set("cho-token",usertoken);
 var sql = "SELECT * FROM users_accounts where osuname='" + reqcon[0] + "' and passwordHash='" + reqcon[1] + "';"
 
