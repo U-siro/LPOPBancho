@@ -19,5 +19,7 @@
 	"_comment": "if you can understand packets, enable this for debug",
 	"debug": 0,
 	"_comment": "not working in currently",
-	"useRawPackets": 1
+	"useRawPackets": 1,
+	"_comment": "Display Silence Stat check packet?",
+	"SilenceStat": 1
 }
