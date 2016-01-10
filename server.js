@@ -210,7 +210,7 @@ app.post('/web/osu-error.php', function(req, res) {
 
 //dummy #1(i don't know but it didn't any)
 app.get('/web/bancho_connect.php', function(req, res) {
-
+res.send("error: pass");
 });
 
 //dummy #2(i don't know but it didn't any)
@@ -255,8 +255,15 @@ return res.end(res.writeHead(302, 'Webcome to Bancho'));
 });
 
 app.get('*', function(req, res) {
-return res.end(res.writeHead(404, 'Not in there')); 
+logc(req.originalUrl + " accessed");
+if(req.get('host')=="a.ppy.sh"){
+  res.sendFile(__dirname + "/profile.png");
+} else {
+res.end(res.writeHead(404, 'Not in there')); 
 res.send("Hmm.. Not found");
+}
+
+
 });
 
 var server = app.listen(80, function() {
