@@ -4,7 +4,6 @@ var app = express();
 var users = new Array();
 var fs = require('fs');
 var mysql = require('mysql');
-var conv = require('binstring');
 var bodyParser = require('body-parser');
 
 //MySQL Server
