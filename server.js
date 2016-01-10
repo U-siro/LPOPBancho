@@ -7,7 +7,14 @@ var fs = require('fs');
 var mysql = require('mysql');
 var bodyParser = require('body-parser');
 console.log("Reading config..");
+try {
 var config = JSON.parse(fs.readFileSync("config.json","utf8"));
+} catch(e) {
+  console.log("We found error from your config.json");
+  console.log("Please verify your config.json");
+  console.log(e);
+  return;
+}
 console.log("Config Loaded!");
 
 console.log("Defining Functions");
