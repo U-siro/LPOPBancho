@@ -95,22 +95,20 @@ function toHex(str) {
   for(var i=0;i<str.length;i++) {
     hex += ''+str.charCodeAt(i).toString(16);
   }
-  return hex;
+  return replaceAll(hex," ","");
 }
 function isNormalPacket(hexpacket){
-  var packet=toHex(hexpacket);
-  if(packet="40000000"){
-    return true;
+  if(hexpacket=="40000000"){
+    return 1;
   } else {
-    return false;
+    return 0;
   }
 }
 function isLogoutPacket(hexpacket){
-  var packet=toHex(hexpacket);
-  if(packet="20040000000"){
-    return true;
+  if(hexpacket=="20040000000"){
+    return 1;
   } else {
-    return false;
+    return 0;
   }
 }
 
@@ -137,7 +135,7 @@ app.post('/', function(req, res) {
 var rawpost=req.rawBody;
 res.set("cho-protocol","19");
   if(config['debug']) {
-    if(!isNormalPacket(rawpost)){
+    if(isNormalPacket(toHex(rawpost))==0){
     logc("Received from client: " + rawpost);
     logc("Received from client with hex: " + toHex(rawpost));
   }
@@ -147,13 +145,12 @@ var reqcon = req.rawBody.split(/\n/);
 if(req.get("osu-token")) {
   var token=req.get("osu-token");
   var tusername=tokentouser[token];
-      if(!isNormalPacket(rawpost)){
+      if(!isNormalPacket(toHex(rawpost))==0){
   logc("Bancho Request Received from " + tusername + "(" + token + ")");
-if(isLogoutPacket(rawpost)){
-  var tusername=tokentouser[token];
-  logc("Player " + nickname + " leave the game");
 }
-
+if(isLogoutPacket(toHex(rawpost))==1){
+  var tusername=tokentouser[token];
+  logc("Player " + tusername + " leave the game");
 }
 
   res.send("");
@@ -176,7 +173,6 @@ if(!rows[0]) {
   } else {
     fs.readFile(__dirname + '/login.raw', 'utf8', function (err, data) {
     var out = data;
-    logc(reqcon[0]);
     out = replaceAll(out, "LPOPYui", nickname);
     res.send(out);
   if(config['debug']) {
