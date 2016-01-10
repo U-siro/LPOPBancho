@@ -2,6 +2,7 @@ console.log("Defining variable and modules");
 var express = require('express');
 var app = express();
 var users = new Array();
+var tokentouser = new Array();
 var fs = require('fs');
 var mysql = require('mysql');
 var bodyParser = require('body-parser');
@@ -31,7 +32,7 @@ function makeid()
     var text = "";
     var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
-    for( var i=0; i < 5; i++ )
+    for( var i=0; i < 8; i++ )
         text += possible.charAt(Math.floor(Math.random() * possible.length));
 
     return text;
@@ -99,8 +100,7 @@ connection.connect(function(err) {
 
 
 app.post('/', function(req, res) {
-//We should give token to user
-res.set("cho-token","lpopbancho");
+
 res.set("cho-protocol","19");
 logc("Bancho Request");
 logc(req.rawBody);
@@ -108,10 +108,15 @@ var reqcon = req.rawBody;
 reqcon = reqcon.split(/\n/);
 
 if(req.get("osu-token")) {
+  logc(tokentouser[req.get("osu-token")]);
   res.send("");
   return;
 }
-
+var nickname=reqcon[0];
+var usertoken=makeid();
+tokentouser[usertoken]=nickname;
+logc(usertoken + " = " + nickname);
+res.set("cho-token",usertoken);
 var sql = "SELECT * FROM users_accounts where osuname='" + reqcon[0] + "' and passwordHash='" + reqcon[1] + "';"
 
 connection.query(sql, function(err, rows) {
@@ -124,7 +129,7 @@ if(!rows[0]) {
     fs.readFile(__dirname + '/login.raw', 'utf8', function (err, data) {
     var out = data;
     logc(reqcon[0]);
-    out = replaceAll(out, "LPOPYui", reqcon[0]);
+    out = replaceAll(out, "LPOPYui", nickname);
     res.send(out);
   if(debug) {
     logc("Send to client: " + out);
