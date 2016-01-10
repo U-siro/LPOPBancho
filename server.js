@@ -115,8 +115,11 @@ res.set("cho-protocol","19");
 var reqcon = req.rawBody.split(/\n/);
 
 if(req.get("osu-token")) {
-  logc(tokentouser[req.get("osu-token")]);
+  var token=req.get("osu-token");
+  var tusername=tokentouser[token];
+  logc("Bancho Request Received from " + tusername + "(" + token + ")");
   res.send("");
+
   return;
 }
 var nickname=reqcon[0];
