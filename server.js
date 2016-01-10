@@ -5,26 +5,9 @@ var users = new Array();
 var fs = require('fs');
 var mysql = require('mysql');
 var bodyParser = require('body-parser');
-var config = require(__dirname + '/config.json');
-console.log(config);
-
+console.log("Reading config..");
+var config = JSON.parse(fs.readFileSync("config.json","utf8"));
 console.log("Config Loaded!");
-
-//MySQL Server
-var connection = mysql.createConnection(config[mysql]);
-logc("MySQL Connecting..");
-connection.connect(function(err) {
-    if (err) {
-      console.error('MySQL Connection Error');
-      console.error(err);
-      throw err;
-    } else {
-      logc("MySQL Successfully Connected");
-    }
-});
-
-
-
 
 console.log("Defining Functions");
 function rawBody(req, res, next) {
@@ -98,7 +81,21 @@ logc("Get " + filename + "from " + ip);
 
 logc("Express.js Preparing..");
 app.use(rawBody);
-logc("Waiting for read config..");
+
+
+//MySQL Server
+var connection = mysql.createConnection(config['mysql']);
+logc("MySQL Connecting..");
+connection.connect(function(err) {
+    if (err) {
+      console.error('MySQL Connection Error');
+      console.error(err);
+      throw err;
+    } else {
+      logc("MySQL Successfully Connected");
+    }
+});
+
 
 
 app.post('/', function(req, res) {
