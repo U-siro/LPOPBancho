@@ -15,7 +15,7 @@
 		"database": "osuserve_osuserver"
 	},
 	"_comment": "Your Bancho's website",
-	"site": "https://github.com/Castar/LPOPBancho",
+	"site": "http://castar.github.io/LPOPBancho",
 	"_comment": "if you can understand packets, enable this for debug",
 	"debug": 0,
 	"_comment": "not working in currently",
