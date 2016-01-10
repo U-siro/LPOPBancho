@@ -5,21 +5,26 @@ var users = new Array();
 var fs = require('fs');
 var mysql = require('mysql');
 var bodyParser = require('body-parser');
+var config = require(__dirname + '/config.json');
+console.log(config);
+
+console.log("Config Loaded!");
 
 //MySQL Server
-var connection = mysql.createConnection({
-  host : 'ranking.lpop.me',
-  port : 3306,
-  user : 'root',
-  password : '******',
-  database :'osuserve_osuserver'
+var connection = mysql.createConnection(config[mysql]);
+logc("MySQL Connecting..");
+connection.connect(function(err) {
+    if (err) {
+      console.error('MySQL Connection Error');
+      console.error(err);
+      throw err;
+    } else {
+      logc("MySQL Successfully Connected");
+    }
 });
 
-//Your Bancho Server Website
-var site = "http://cafe.naver.com/lpopbancho";
 
-//debug flag
-var debug = 0;
+
 
 console.log("Defining Functions");
 function rawBody(req, res, next) {
@@ -93,16 +98,8 @@ logc("Get " + filename + "from " + ip);
 
 logc("Express.js Preparing..");
 app.use(rawBody);
-logc("MySQL Connecting..");
-connection.connect(function(err) {
-    if (err) {
-      console.error('MySQL Connection Error');
-      console.error(err);
-      throw err;
-    } else {
-      logc("MySQL Successfully Connected");
-    }
-});
+logc("Waiting for read config..");
+
 
 app.post('/', function(req, res) {
 //We should give token to user

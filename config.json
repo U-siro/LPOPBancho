@@ -1,0 +1,23 @@
+{
+   "_comment": "Config file",
+   "_comment": "if you using non-english, check file encoding is utf-8.",
+	"mysql": {
+	   "_comment": "MySQL Host",
+		"host": "ranking.lpop.me",
+		"_comment": "MySQL Port, Don't edit if not need",
+		"port": 3306,
+		"_comment": "MySQL Username",
+		"user": "root",
+		"_comment": "MySQL Password",
+		"_comment": "Don't try hack, This is not real password xD",
+		"password": "lovelive",
+		"_comment": "MySQL DB Name",
+		"database": "osuserve_osuserver"
+	},
+	"_comment": "Your Bancho's website",
+	"site": "https://github.com/Castar/LPOPBancho",
+	"_comment": "if you can understand packets, enable this for debug",
+	"debug": 0,
+	"_comment": "not working in currently",
+	"useRawPackets": 1
+}
