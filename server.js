@@ -102,10 +102,10 @@ connection.connect(function(err) {
 app.post('/', function(req, res) {
 
 res.set("cho-protocol","19");
-logc("Bancho Request");
-logc(req.rawBody);
-var reqcon = req.rawBody;
-reqcon = reqcon.split(/\n/);
+  if(config[debug]) {
+    logc("Received from client: " + req.rawBody);
+  }
+var reqcon = req.rawBody.split(/\n/);
 
 if(req.get("osu-token")) {
   logc(tokentouser[req.get("osu-token")]);
@@ -131,7 +131,7 @@ if(!rows[0]) {
     logc(reqcon[0]);
     out = replaceAll(out, "LPOPYui", nickname);
     res.send(out);
-  if(debug) {
+  if(config[debug]) {
     logc("Send to client: " + out);
   }
 });
