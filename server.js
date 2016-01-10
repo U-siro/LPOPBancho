@@ -109,7 +109,7 @@ connection.connect(function(err) {
 app.post('/', function(req, res) {
 
 res.set("cho-protocol","19");
-  if(config[debug]) {
+  if(config['debug']) {
     logc("Received from client: " + req.rawBody);
   }
 var reqcon = req.rawBody.split(/\n/);
@@ -138,7 +138,7 @@ if(!rows[0]) {
     logc(reqcon[0]);
     out = replaceAll(out, "LPOPYui", nickname);
     res.send(out);
-  if(config[debug]) {
+  if(config['debug']) {
     logc("Send to client: " + out);
   }
 });
