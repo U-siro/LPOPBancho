@@ -227,6 +227,11 @@ app.get('/web/lastfm.php', function(req, res) {
 
 });
 
+//screenshot
+app.post('/web/osu-screenshot.php', function(req, res) {
+res.send("ok");
+});
+
 //fuck hackers
 app.get('/web/', function(req, res) {
 res.set("Location", "http://kkzkk.com/"); 
