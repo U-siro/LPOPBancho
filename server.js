@@ -178,8 +178,8 @@ if(!rows[0]) {
     logc("Login Failed");
     return;
   } else {
-    var out = "EDIT00040000000000000005000004000000600200004b000004000000130000004700000400000001000000480000";
-    out = replaceAll(out, "EDIT", (0001).toString(16));
+    var out = "USERNAME00040000000000000005000004000000600200004b000004000000130000004700000400000001000000480000";
+    out = replaceAll(out, "USERNAME", (0001).toString(16));
       if(config['debug']) {
     logc("original Send to client: " + out);
   }
