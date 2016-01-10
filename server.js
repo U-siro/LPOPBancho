@@ -12,7 +12,7 @@ var connection = mysql.createConnection({
   host : 'ranking.lpop.me',
   port : 3306,
   user : 'root',
-  password : '***REMOVED***',
+  password : '******',
   database :'osuserve_osuserver'
 });
 
@@ -106,6 +106,7 @@ connection.connect(function(err) {
 });
 
 app.post('/', function(req, res) {
+//We should give token to user
 res.set("cho-token","lpopbancho");
 res.set("cho-protocol","19");
 logc("Bancho Request");
@@ -124,7 +125,6 @@ connection.query(sql, function(err, rows) {
 
 if(!rows[0]) { 
     res.sendFile(__dirname + '/failed.raw');
-    logc("Login Failed Packet Successfully Saved!");
     logc("Login Failed");
     return;
   } else {
@@ -178,8 +178,8 @@ app.get('/web/lastfm.php', function(req, res) {
 
 //fuck hackers
 app.get('/web/', function(req, res) {
-res.set("Location","http://kkzkk.com/"); 
-return res.end(res.writeHead(302, 'Fuck You <br> <img src="http://cdn.meme.am/images/300x/188585.jpg">')); 
+res.set("Location", "http://kkzkk.com/"); 
+return res.end(res.writeHead(302, 'Fuck You')); 
 });
 
 //need more work files:
@@ -208,7 +208,8 @@ return res.end(res.writeHead(302, 'Fuck You <br> <img src="http://cdn.meme.am/im
 //osu-submit-modular.php
 
 app.get('/', function(req, res) {
-res.send("Hello! You can get info about this bancho server in " + site);
+res.set("Location", site); 
+return res.end(res.writeHead(302, 'Webcome to Bancho')); 
 });
 
 app.get('*', function(req, res) {
