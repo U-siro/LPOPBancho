@@ -28,3 +28,7 @@ node_modules
 
 # Config(Including MySQL Password!)
 config.json
+
+# if your LPOPBancho is enabled when commit time, hosts.bak will uploaded to github
+# This is most pull request rejected reason
+hosts.bak
