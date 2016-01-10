@@ -36,7 +36,7 @@ cls
 echo osu! running.
 %LOCALAPPDATA%\osu!\osu!.exe
 cls
-taskkill /im osu!.exe
+taskkill /im osu!.exe /f
 del C:\Windows\system32\drivers\etc\hosts
 copy hosts.bak C:\Windows\system32\drivers\etc\hosts
 del hosts.bak
