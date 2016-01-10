@@ -216,7 +216,7 @@ return res.end(res.writeHead(302, 'Fuck You'));
 //osu-submit-modular.php
 
 app.get('/', function(req, res) {
-res.set("Location", site); 
+res.set("Location", config['site']); 
 return res.end(res.writeHead(302, 'Webcome to Bancho')); 
 });
 
