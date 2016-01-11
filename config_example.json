@@ -24,5 +24,8 @@
 	"SilenceStat": 1,
 	"_comment": "if Banned, make a client to locked?",
 	"_comment": "Note: Lock can removed via connect another server",
-	"ClientLock": 1
+	"ClientLock": 1,
+	"_comment": "You can enable password hashing",
+	"_comment": "Please Note This config change require clear your DB, so carefully select!",
+	"HashPassword": 1
 }
