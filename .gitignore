@@ -39,3 +39,4 @@ hosts.bak
 # shouldn't upload user uploaded data
 replay_uploads/*
 screenshot_uploads/*
+profile_uploads/*
