@@ -21,5 +21,8 @@
 	"_comment": "not working in currently",
 	"useRawPackets": 1,
 	"_comment": "Display Silence Stat check packet?",
-	"SilenceStat": 1
+	"SilenceStat": 1,
+	"_comment": "if Banned, make a client to locked?",
+	"_comment": "Note: Lock can removed via connect another server",
+	"ClientLock": 1
 }
