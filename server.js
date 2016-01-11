@@ -123,6 +123,24 @@ function isLogoutPacket(hexpacket){
   }
 }
 
+function scoreString(replayId, name, score, combo, count50, count100, count300, countMiss, countKatu, countGeki, FC, mods, avatarID, rank, timestamp){
+  return replayId + "|" + name + "|" + score + "|" + combo + "|" + count50 + "|" + count100 + "|" + count300 + "|" + countMiss + "|" + countKatu + "|" + countGeki + "|" + FC + "|" + mods + "|" + avatarID + "|" + rank + "|" + timestamp + "\r\n";
+}
+
+function isInvaild(uid,upw){
+  var sql = "SELECT * FROM users where username='" + uid + "' and userpass='" + upw + "';";
+  logc(sql);
+connection.query(sql, function(err, rows) {
+if(!rows[0]) { 
+  return 1;
+}
+return 0;
+});
+}
+
+
+
+
 logc("Express.js Preparing..");
 app.use(rawBody);
 
@@ -215,7 +233,31 @@ app.post('/web/osu-submit-modular.php', function(req, res) {
 
 //get ranking
 app.get('/web/osu-osz2-getscores.php', function(req, res) {
-
+res.write("3|false|0|0|0\r\n\r\n\r\n9.28235\r\n\r\n");
+logc(req.query.us + " " + req.query.ha);
+if(isInvaild(req.query.us,req.query.ha)){
+res.write(scoreString(0, 'You', 1, 0,
+            0, 10, 50, 1, 0, 0,
+            0, 0, 0, 2, 0));
+res.write(scoreString(0, 'are', 0, 0,
+            0, 0, 50, 1, 10, 0,
+            0, 0, 0, 3, 0));
+res.write(scoreString(0, 'invalid!', -1, 0,
+            2, 10, 0, 1, 0, 0,
+            0, 0, 0, 4, 0));
+res.end();
+return;
+}
+res.write(scoreString(0, 'Ranking', 1, 0,
+            0, 10, 50, 1, 0, 0,
+            0, 0, 0, 2, 0));
+res.write(scoreString(0, 'not yet', 0, 0,
+            0, 0, 50, 1, 10, 0,
+            0, 0, 0, 3, 0));
+res.write(scoreString(0, 'availble', -1, 0,
+            2, 10, 0, 1, 0, 0,
+            0, 0, 0, 4, 0));
+res.end();
 });
 
 //replay
