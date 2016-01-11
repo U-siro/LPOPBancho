@@ -7,7 +7,7 @@ var fs = require('fs');
 var mysql = require('mysql');
 var bodyParser = require('body-parser');
 var SilenceStat;
-var multer  = require('multer')
+var multer  = require('multer');
 var scrupload = multer({ dest: 'screenshot_uploads/' });
 var repupload = multer({ dest: 'replay_uploads/' });
 console.log("Reading config..");
