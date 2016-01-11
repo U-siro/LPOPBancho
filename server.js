@@ -1,4 +1,5 @@
 console.log("Defining variable and modules");
+var version = "0.0.1";
 var express = require('express');
 var app = express();
 var users = new Array();
@@ -263,7 +264,7 @@ res.end();
 });
 
 //replay
-app.get('/web/osu-getreplay.php', function(req, res) {
+app.get('/web/osu-getreplay.php', function(req, re) {
 
 });
 
@@ -314,6 +315,9 @@ app.get('/u/me/avatar', function(req, res) {
     return;
   }
   res.send("Hello");
+});
+app.get('/version', function(req, res) {
+  res.send("This running LPOPBancho v" + version + ".");
 });
 
 // Redirect hard-coded page url
