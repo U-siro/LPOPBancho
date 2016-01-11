@@ -34,4 +34,4 @@ Just run `Bancho.cmd`. This will check node.js, install modules, and Run the LPO
 - [ ] Screenshot
 
 # How to connect?
-Check out out other repo, [osu!connect](https://github.com/Castar/osu-connect/tree/master).
+Check out our other repo, [osu!connect](https://github.com/Castar/osu-connect/tree/master).
