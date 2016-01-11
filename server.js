@@ -259,7 +259,21 @@ res.set("Location", "http://kkzkk.com/");
 return res.end(res.writeHead(302, 'Fuck You')); 
 });
 
+// Special Pages
+app.get('/u/me/avatar', function(req, res) {
+  if(!req.get('host')=="osu.ppy.sh"){
+    res.send("Invaild Hostname!");
+    return;
+  }
 
+// Redirect hard-coded page url
+app.get('/forum/ucp.php', function(req, res) {
+  if(!req.get('host')=="osu.ppy.sh"){
+    res.send("Invaild Hostname!");
+    return;
+  }
+
+});
 
 //need more work files:
 //bancho_connect.php
