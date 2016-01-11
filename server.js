@@ -128,7 +128,7 @@ function scoreString(replayId, name, score, combo, count50, count100, count300, 
 }
 
 function isInvaild(uid,upw){
-  var sql = "SELECT * FROM users where username='" + uid + "' and userpass='" + upw + "';";
+  var sql = "SELECT * FROM users where username='" + uid + "' and passwordHash='" + upw + "';";
   logc(sql);
 connection.query(sql, function(err, rows) {
 if(!rows[0]) { 
@@ -192,7 +192,7 @@ var usertoken=makeid();
 tokentouser[usertoken]=nickname;
 logc("Player " + nickname + " joined the game with token " + usertoken);
 res.set("cho-token",usertoken);
-var sql = "SELECT * FROM users where username='" + reqcon[0] + "' and userpass='" + reqcon[1] + "';"
+var sql = "SELECT * FROM users where username='" + reqcon[0] + "' and passwordHash='" + reqcon[1] + "';"
 
 connection.query(sql, function(err, rows) {
 if(!rows[0]) { 
