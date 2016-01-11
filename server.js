@@ -174,7 +174,7 @@ var usertoken=makeid();
 tokentouser[usertoken]=nickname;
 logc("Player " + nickname + " joined the game with token " + usertoken);
 res.set("cho-token",usertoken);
-var sql = "SELECT * FROM users_accounts where osuname='" + reqcon[0] + "' and passwordHash='" + reqcon[1] + "';"
+var sql = "SELECT * FROM users where username='" + reqcon[0] + "' and userpass='" + reqcon[1] + "';"
 
 connection.query(sql, function(err, rows) {
 if(!rows[0]) { 
@@ -186,8 +186,12 @@ if(!rows[0]) {
     logc("Login Failed");
     return;
   } else {
-    //var out = "5C0000000000000005000004000000600200004b00000400000013000000470000040000000100000048000053006002" + toHex(nickname) + "6002";
-    var out;
+    logc(rows[0]);
+        var out;
+        // Ban client locking
+    if(rows[0]['banned']){
+out = "5C0000000000000005000004000000600200004b00000400000013000000470000040000000100000048000053006002" + toHex(nickname) + "6002";
+    }
     out = out + "USERID00040000000000000005000004000000600200004B0000040000001300000047000004000000010000004800000A000000020002000000030000005300001C000000600200000B07USERNAMEREALLY1800010000000000000000BC0100000B00002E0000006002000000000000000000000000000067B3040000000000D044783F030000000000000000000000BC010000000053000021000000020000000B0C436F6F6B69657A69426F74731801000000000000000000000000005300001B000000030000000B0642616E63686F1801000000000000000000440000005300001D0000007D0100000B084E696B6F6E696B6F180100000000000000000034000000600000";
     out = replaceAll(out, "USERID", (0601).toString(16));
     out = replaceAll(out, "USERNAMEREALLY", nickname);
