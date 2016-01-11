@@ -35,3 +35,7 @@ config.json
 # if your LPOPBancho is enabled when commit time, hosts.bak will uploaded to github
 # This is most pull request rejected reason
 hosts.bak
+
+# shouldn't upload user uploaded data
+replay_uploads/*
+screenshot_uploads/*
