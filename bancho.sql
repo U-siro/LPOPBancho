@@ -17,9 +17,9 @@ USE `bancho`;
 
 -- 테이블 bancho.scores 구조 내보내기
 CREATE TABLE IF NOT EXISTS `scores` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `replayID` int(11) NOT NULL AUTO_INCREMENT,
   `beatmapHash` varchar(32) DEFAULT NULL,
-  `playerID` varchar(5) DEFAULT NULL,
+  `userID` varchar(5) DEFAULT NULL,
   `count300` int(11) DEFAULT NULL,
   `count100` int(11) DEFAULT NULL,
   `count50` int(11) DEFAULT NULL,
