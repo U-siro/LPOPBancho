@@ -253,7 +253,7 @@ app.post('/web/osu-screenshot.php', scrupload.single('ss'), function(req, res) {
   logc(req.files);
 });
 
-//fuck hackers
+// fuck hackers
 app.get('/web/', function(req, res) {
 res.set("Location", "http://kkzkk.com/"); 
 return res.end(res.writeHead(302, 'Fuck You')); 
@@ -261,19 +261,28 @@ return res.end(res.writeHead(302, 'Fuck You'));
 
 // Special Pages
 app.get('/u/me/avatar', function(req, res) {
-  if(!req.get('host')=="osu.ppy.sh"){
+  if(req.get('host')!="osu.ppy.sh"){
     res.send("Invaild Hostname!");
     return;
   }
+  res.send("Hello");
+});
 
 // Redirect hard-coded page url
 app.get('/forum/ucp.php', function(req, res) {
-  if(!req.get('host')=="osu.ppy.sh"){
+  if(!req.get('host')!="osu.ppy.sh"){
     res.send("Invaild Hostname!");
     return;
   }
-
+  // Router
+  if(req.query.i=="profile" && req.query.mode=="avatar"){
+    res.set("Location", "/u/me/avatar");
+    return res.end(res.writeHead(302, 'Hello Browser')); 
+  }
+  return res.end(res.writeHead(404, 'Not in there')); 
 });
+
+
 
 //need more work files:
 //bancho_connect.php
