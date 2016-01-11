@@ -7,6 +7,9 @@ var fs = require('fs');
 var mysql = require('mysql');
 var bodyParser = require('body-parser');
 var SilenceStat;
+var multer  = require('multer')
+var scrupload = multer({ dest: 'screenshot_uploads/' });
+var repupload = multer({ dest: 'replay_uploads/' });
 console.log("Reading config..");
 try {
 var config = JSON.parse(fs.readFileSync("config.json","utf8"));
@@ -165,6 +168,7 @@ if(isLogoutPacket(toHex(rawpost))==1){
 
   return;
 }
+
 var nickname=reqcon[0];
 var usertoken=makeid();
 tokentouser[usertoken]=nickname;
@@ -174,12 +178,20 @@ var sql = "SELECT * FROM users_accounts where osuname='" + reqcon[0] + "' and pa
 
 connection.query(sql, function(err, rows) {
 if(!rows[0]) { 
-    res.send(hex2bin("05000004000000ffffffff"));
+  var sendbuffer=hex2bin("05000004000000FFFFFFFF");
+        if(config['debug']) {
+    logc("Send to client: " + sendbuffer);
+  }
+    res.send(sendbuffer);
     logc("Login Failed");
     return;
   } else {
-    var out = "USERNAME00040000000000000005000004000000600200004b000004000000130000004700000400000001000000480000";
-    out = replaceAll(out, "USERNAME", (0001).toString(16));
+    //var out = "5C0000000000000005000004000000600200004b00000400000013000000470000040000000100000048000053006002" + toHex(nickname) + "6002";
+    var out;
+    out = out + "USERID00040000000000000005000004000000600200004B0000040000001300000047000004000000010000004800000A000000020002000000030000005300001C000000600200000B07USERNAMEREALLY1800010000000000000000BC0100000B00002E0000006002000000000000000000000000000067B3040000000000D044783F030000000000000000000000BC010000000053000021000000020000000B0C436F6F6B69657A69426F74731801000000000000000000000000005300001B000000030000000B0642616E63686F1801000000000000000000440000005300001D0000007D0100000B084E696B6F6E696B6F180100000000000000000034000000600000";
+    out = replaceAll(out, "USERID", (0601).toString(16));
+    out = replaceAll(out, "USERNAMEREALLY", nickname);
+
       if(config['debug']) {
     logc("original Send to client: " + out);
   }
@@ -227,9 +239,18 @@ app.get('/web/lastfm.php', function(req, res) {
 
 });
 
+// Update
+app.get('/web/check-update.php', function(req, res) {
+res.send("[]");
+});
+
 //screenshot
-app.post('/web/osu-screenshot.php', function(req, res) {
-res.send("ok");
+app.post('/web/osu-screenshot.php', scrupload.single('ss'), function(req, res) {
+  console.log(req.body);
+ // console.log(req.rawBody);
+  var scrid = makeid();
+  res.send(scrid);
+  logc(req.files);
 });
 
 //fuck hackers
@@ -237,6 +258,8 @@ app.get('/web/', function(req, res) {
 res.set("Location", "http://kkzkk.com/"); 
 return res.end(res.writeHead(302, 'Fuck You')); 
 });
+
+
 
 //need more work files:
 //bancho_connect.php
@@ -273,8 +296,8 @@ logc(req.originalUrl + " accessed");
 if(req.get('host')=="a.ppy.sh"){
   res.sendFile(__dirname + "/profile.png");
 } else {
-res.end(res.writeHead(404, 'Not in there')); 
-res.send("Hmm.. Not found");
+return res.end(res.writeHead(404, 'Not in there')); 
+//res.send("Hmm.. Not found");
 }
 
 
