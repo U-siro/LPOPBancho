@@ -1,3 +1,7 @@
+// LPOPBancho Source Code
+// Copyright 2016 Castar & NekoWasHere
+// if you made any change, Plz commit them!
+// For more help, read "LICENSE"
 console.log("Defining variable and modules");
 var version = "0.0.1";
 var express = require('express');
