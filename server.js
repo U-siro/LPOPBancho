@@ -294,7 +294,7 @@ app.get('/web/lastfm.php', function(req, res) {
 });
 
 // Update
-app.get('/web/check-update.php', function(req, res) {
+app.get('/web/check-updates.php', function(req, res) {
 res.send("[]");
 });
 
