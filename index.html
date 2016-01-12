@@ -1,63 +1,195 @@
-<!DOCTYPE html>
+
 <html>
+<title>LPOPBancho</title>
+<audio src="circles.mp3" autoplay loop>
+<embed src="circles.mp3" width="180" height="90" hidden="true" loop="true" />
+</audio>
+<body>
+<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans">
+<style>
+a {text-decoration: none; }
+a:visited{color: white;}
+f1 { 
+font-family: 'Open Sans', serif; 
+font-size: 28px; 
+color: white;
+color: rgba(255,255,255,1);
+text-decoration: normal;
+text-align: center;
+-o-text-overflow: clip;
+text-overflow: clip;
+white-space: pre;
+background: none;
+-webkit-box-shadow: none;
+box-shadow: none;
+text-shadow: 0 0 10px rgba(255,255,255,1) , 0 0 20px rgba(255,255,255,1) , 0 0 30px rgba(255,255,255,1) , 0 0 40px #ffffff , 0 0 70px #ffffff , 0 0 80px #ffffff , 0 0 100px #ffffff ;
+-webkit-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+-moz-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+-o-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+-webkit-transform: none;
+transform: none;
+-webkit-transform-origin: 50% 50% 0;
+transform-origin: 50% 50% 0;
+}
+f2 { 
+font-family: 'Open Sans', serif; 
+font-size: 13px;
+color: white; 
+color: rgba(255,255,255,1);
+text-decoration: normal;
+text-align: center;
+-o-text-overflow: clip;
+text-overflow: clip;
+white-space: pre;
+background: none;
+-webkit-box-shadow: none;
+box-shadow: none;
+text-shadow: 0 0 10px rgba(255,255,255,1) , 0 0 20px rgba(255,255,255,1) , 0 0 30px rgba(255,255,255,1) , 0 0 40px #ffffff , 0 0 70px #ffffff , 0 0 80px #ffffff , 0 0 100px #ffffff ;
+-webkit-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+-moz-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+-o-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+-webkit-transform: none;
+transform: none;
+-webkit-transform-origin: 50% 50% 0;
+transform-origin: 50% 50% 0;
+}
+f3 { 
+font-family: 'Open Sans', serif; 
+font-size: 14px;
+color: white; 
+color: rgba(255,255,255,1);
+text-decoration: normal;
+text-align: center;
+-o-text-overflow: clip;
+text-overflow: clip;
+white-space: pre;
+background: none;
+-webkit-box-shadow: none;
+box-shadow: none;
+text-shadow: 0 0 10px rgba(255,255,255,1) , 0 0 20px rgba(255,255,255,1) , 0 0 30px rgba(255,255,255,1) , 0 0 40px #ffffff , 0 0 70px #ffffff , 0 0 80px #ffffff , 0 0 100px #ffffff ;
+-webkit-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+-moz-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+-o-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+-webkit-transform: none;
+transform: none;
+-webkit-transform-origin: 50% 50% 0;
+transform-origin: 50% 50% 0;
+}
+body {
+	background-color: #333;
+        background-image: 
+        url(triangle1.png),
+        url(triangle2.png),
+        url(triangle3.png) !important;
+	animation: main-background-triangles 40s infinite linear;
+	-webkit-animation: main-background-triangles 40s infinite linear;
+}
+@keyframes main-background-triangles {
+	0% {
+		background-position: 0 0, 0 0, 0 0;
+	}
+	
+	30% {
+		background-position: 0 -640px, 0 -320px, 0 -160px;
+	}
+	
+	50% {
+		background-position: 0 -1280px, 0 -640px, 0 -320px;
+	}
+	
+	100% {
+		background-position: 0 -1920px, 0 -1280px, 0 -640px;
+	}
+}
 
-  <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="description" content="LPOPBancho : LPOPBancho is custom osu! ranking and online service.">
+@-webkit-keyframes main-background-triangles {
+	0% {
+		background-position: 0 0, 0 0, 0 0;
+	}
+	
+	33% {
+		background-position: 0 -640px, 0 -320px, 0 -160px;
+	}
+	
+	66% {
+		background-position: 0 -1280px, 0 -640px, 0 -320px;
+	}
+	
+	100% {
+		background-position: 0 -1920px, 0 -1280px, 0 -640px;
+	}
+}
 
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+@keyframes fadebottom {
+	0% {
+		transform: translateY(80px);
+		opacity: 0;
+	}
+	
+	100% {
+		transform: translateX(0px);
+		opacity: 1;
+	}
+}
 
-    <title>LPOPBancho</title>
-  </head>
+@-webkit-keyframes fadebottom {
+	0% {
+		transform: translateY(80px);
+		opacity: 0;
+	}
+	
+	100% {
+		transform: translateX(0px);
+		opacity: 1;
+	}
+}
 
-  <body>
-
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/Castar/LPOPBancho">View on GitHub</a>
-
-          <h1 id="project_title">LPOPBancho</h1>
-          <h2 id="project_tagline">LPOPBancho is custom osu! ranking and online service.</h2>
-
-            <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/Castar/LPOPBancho/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/Castar/LPOPBancho/tarball/master">Download this project as a tar.gz file</a>
-            </section>
-        </header>
-    </div>
-
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
-        <h3>
-<a id="hello" class="anchor" href="#hello" aria-hidden="true"><span class="octicon octicon-link"></span></a>Hello!</h3>
-
-<p>LPOPBancho is designed osu! custom server.
-It will works like real bancho server.</p>
-
-<h3>
-<a id="how-to-use" class="anchor" href="#how-to-use" aria-hidden="true"><span class="octicon octicon-link"></span></a>How to use?</h3>
-
-<p>Just run <code>Bancho.cmd</code> and done!</p>
-
-<h3>
-<a id="support-or-contact" class="anchor" href="#support-or-contact" aria-hidden="true"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
-
-<p>Please use github issue tracker or skype skycastar.</p>
-      </section>
-    </div>
-
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
-        <p class="copyright">LPOPBancho maintained by <a href="https://github.com/Castar">Castar</a></p>
-        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
-      </footer>
-    </div>
-
+.tabmenu li.disabled a, .tabmenu li.selected a, a {
+  -webkit-transition: color 80ms linear;
+  transition: color 80ms linear;
+}
+  
+@media (max-width: 870px) {
+ 	.content {
+  		margin-right: 0;
+      	margin-top: 30px;
+    }
     
-
-  </body>
-</html>
+    #show-menu-button {
+     	margin: 0; 
+      	border-color: #fff;
+    }
+    
+    #show-menu-button::before {
+    	border-color: #fff;    
+    }
+      
+    #header-account > div {
+    	margin-top: 25px !important;
+    }
+      
+    .tabmenu li.disabled a {
+  		background: transparent;
+		border: none;
+  		box-shadow: none !important;
+  		color: rgba(255, 255, 255, 0.9);
+	}
+}
+</style>
+<body>
+<div id="snow">
+</div>
+<div class="text-glow">
+<center><f1>LPOPBancho</f1></center>
+&nbsp;
+<center><f3>LPOPBancho is free Bancho Alternate.</f3></center>
+<center><f3><a href="https://github.com/Castar/LPOPBancho">GitHub</a></f3></center>
+&nbsp;
+<center><f2><p>&copy; Castar & NekoWasHere<p></f2></center>
+&nbsp;
+&nbsp;
+</div>
+<html>
