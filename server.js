@@ -142,6 +142,13 @@ if(!rows[0]) {
 return 0;
 });
 }
+function padLeft(nr, n, str){
+    return Array(n-String(nr).length+1).join(str||'0')+nr;
+}
+//or as a Number prototype method:
+Number.prototype.padLeft = function (n,str){
+    return Array(n-String(this).length+1).join(str||'0')+this;
+}
 
 
 
@@ -201,7 +208,7 @@ var sql = "SELECT * FROM users where username='" + reqcon[0] + "' and passwordHa
 
 connection.query(sql, function(err, rows) {
 if(!rows[0]) { 
-  var sendbuffer=hex2bin("05000004000000FFFFFFFF");
+  var sendbuffer=hex2bin("05000004000000FEFFFFFF");
         if(config['debug']) {
     logc("Send to client: " + sendbuffer);
   }
@@ -217,7 +224,7 @@ out = "5C0000000000000005000004000000600200004b000004000000130000004700000400000
     }
   }
     out = out + "USERID00040000000000000005000004000000600200004B0000040000001300000047000004000000010000004800000A000000020002000000030000005300001C000000600200000BNICKLENGTHUSERNAMEREALLY1800010000000000000000BC0100000B00002E0000006002000000000000000000000000000067B3040000000000D044783F030000000000000000000000BC010000000053000021000000020000000B0C436F6F6B69657A69426F74731801000000000000000000000000005300001B000000030000000B0642616E63686F1801000000000000000000440000005300001D0000007D0100000B084E696B6F6E696B6F180100000000000000000034000000600000";
-    out = replaceAll(out, "USERID", "0f24");
+    out = replaceAll(out, "USERID", rows[0].id.padLeft(4,0));
     out = replaceAll(out, "USERNAMEREALLY", toHex(nickname));
     out = replaceAll(out, "NICKLENGTH", "0" + nickname.length.toString(16));
     logc(nickname);
