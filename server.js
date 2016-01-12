@@ -9,8 +9,8 @@ var mysql = require('mysql');
 var bodyParser = require('body-parser');
 var SilenceStat;
 var multer  = require('multer');
-var scrupload = multer({ dest: 'screenshot_uploads/' });
-var repupload = multer({ dest: 'replay_uploads/' });
+var scrupload = multer({ dest: './screenshot_uploads/' });
+var repupload = multer({ dest: './replay_uploads/' });
 console.log("Reading config..");
 try {
 var config = JSON.parse(fs.readFileSync("config.json","utf8"));
@@ -294,12 +294,14 @@ res.send("[]");
 });
 
 //screenshot
-app.post('/web/osu-screenshot.php', scrupload.single('ss'), function(req, res) {
-  console.log(req.body);
+app.post('/web/osu-screenshot.php', scrupload.any(), function(req, res) {
  // console.log(req.rawBody);
   var scrid = makeid();
-  res.send(scrid);
-  logc(req.files);
+  res.write(scrid);
+    res.status(204).end()
+    console.log(req.body);// form fields
+    console.log(req.files);// form files
+
 });
 
 // fuck hackers
@@ -322,7 +324,7 @@ app.get('/version', function(req, res) {
 
 // Redirect hard-coded page url
 app.get('/forum/ucp.php', function(req, res) {
-  if(!req.get('host')!="osu.ppy.sh"){
+  if(req.get('host')!="osu.ppy.sh"){
     res.send("Invaild Hostname!");
     return;
   }
