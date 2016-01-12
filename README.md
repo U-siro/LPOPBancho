@@ -8,6 +8,13 @@ LPOPBancho Issue Tracker and source code.
 [Report](https://github.com/Castar/LPOPBancho/issues) issues that need to get fixed!
 But only two people are developing this, and can delayed.
 
+# About latest update
+We recently updated to compatible cutting edge. So if you feel issue, let's use cutting edge version.
+
+# SSL
+You should(or not?) install SSL cert.
+Really Simple: Open ssl/install-this.crt and click install cert -> Next -> set cert storage to Trust CA -> Next(or done?) -> Yes
+
 # How to use?
 Just run `Bancho.cmd`. This will check node.js, install modules, and Run the LPOPBancho.
 

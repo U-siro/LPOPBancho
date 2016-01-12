@@ -274,6 +274,7 @@ res.send("error: disabled");
 
 //get ranking
 app.get('/web/osu-osz2-getscores.php', function(req, res) {
+  console.log(req.query);
 res.write("3|false|0|0|0\r\n\r\n\r\n9.28235\r\n\r\n");
 logc(req.query.us + " " + req.query.ha);
 if(isInvaild(req.query.us,req.query.ha)){
