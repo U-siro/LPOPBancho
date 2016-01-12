@@ -7,6 +7,7 @@ var version = "0.0.1";
 var express = require('express');
 var app = express();
 var users = new Array();
+var status = new Array();
 var tokentouser = new Array();
 var fs = require('fs');
 var mysql = require('mysql');
@@ -127,7 +128,17 @@ function isLogoutPacket(hexpacket){
     return 0;
   }
 }
-
+function isExitBeatmapPacket(hexpacket){
+  if(hexpacket=="000e0000b0b04020004bfffd40"){
+    return 1;
+  } else {
+    return 0;
+  }
+}
+String.prototype.startsWith = function(needle)
+{
+    return(this.indexOf(needle) == 0);
+};
 function scoreString(replayId, name, score, combo, count50, count100, count300, countMiss, countKatu, countGeki, FC, mods, avatarID, rank, timestamp){
   return replayId + "|" + name + "|" + score + "|" + combo + "|" + count50 + "|" + count100 + "|" + count300 + "|" + countMiss + "|" + countKatu + "|" + countGeki + "|" + FC + "|" + mods + "|" + avatarID + "|" + rank + "|" + timestamp + "\r\n";
 }
@@ -186,7 +197,7 @@ var reqcon = req.rawBody.split(/\n/);
 if(req.get("osu-token")) {
   var token=req.get("osu-token");
   var tusername=tokentouser[token];
-      if(!isNormalPacket(toHex(rawpost))==0){
+      if(isNormalPacket(toHex(rawpost))!=0){
   logc("Bancho Request Received from " + tusername + "(" + token + ")");
 }
 if(isLogoutPacket(toHex(rawpost))==1){
@@ -226,7 +237,7 @@ out = "5C0000000000000005000004000000600200004b000004000000130000004700000400000
     out = out + "USERID00040000000000000005000004000000600200004B0000040000001300000047000004000000010000004800000A000000020002000000030000005300001C000000600200000BNICKLENGTHUSERNAMEREALLY1800010000000000000000BC0100000B00002E0000006002000000000000000000000000000067B3040000000000D044783F030000000000000000000000BC010000000053000021000000020000000B0C436F6F6B69657A69426F74731801000000000000000000000000005300001B000000030000000B0642616E63686F1801000000000000000000440000005300001D0000007D0100000B084E696B6F6E696B6F180100000000000000000034000000600000";
     out = replaceAll(out, "USERID", rows[0].id.padLeft(4,0));
     out = replaceAll(out, "USERNAMEREALLY", toHex(nickname));
-    out = replaceAll(out, "NICKLENGTH", "0" + nickname.length.toString(16));
+    out = replaceAll(out, "NICKLENGTH", nickname.length.toString(16).padLeft(2,0));
     logc(nickname);
 
       if(config['debug']) {
