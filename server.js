@@ -6,6 +6,9 @@ console.log("Defining variable and modules");
 var version = "0.0.1";
 var express = require('express');
 var app = express();
+var http = require('http');
+var https = require('https');
+//https.globalAgent.options.secureProtocol = 'SSLv3_method';
 var users = new Array();
 var status = new Array();
 var tokentouser = new Array();
@@ -16,6 +19,10 @@ var SilenceStat;
 var multer  = require('multer');
 var scrupload = multer({ dest: './screenshot_uploads/' });
 var repupload = multer({ dest: './replay_uploads/' });
+var options = {
+    key: fs.readFileSync('./ssl/key.pem'),
+    cert: fs.readFileSync('./ssl/cert.pem'),
+};
 console.log("Reading config..");
 try {
 var config = JSON.parse(fs.readFileSync("config.json","utf8"));
@@ -166,6 +173,12 @@ Number.prototype.padLeft = function (n,str){
 
 logc("Express.js Preparing..");
 app.use(rawBody);
+https.createServer(options,app).listen(443, function(){
+  logc('Secure HTTPS on *:443');
+});
+http.createServer(app).listen(80, function(){
+  logc('Insecure HTTP on *:80');
+});
 
 
 //MySQL Server
@@ -205,7 +218,7 @@ if(isLogoutPacket(toHex(rawpost))==1){
   logc("Player " + tusername + " leave the game");
 }
 
-  res.send("");
+  res.send(hex2bin("0d0a"));
 
   return;
 }
@@ -216,7 +229,7 @@ tokentouser[usertoken]=nickname;
 logc("Player " + nickname + " joined the game with token " + usertoken);
 res.set("cho-token",usertoken);
 var sql = "SELECT * FROM users where username='" + reqcon[0] + "' and passwordHash='" + reqcon[1] + "';"
-
+var banned = 0;
 connection.query(sql, function(err, rows) {
 if(!rows[0]) { 
   var sendbuffer=hex2bin("05000004000000FEFFFFFF");
@@ -234,10 +247,11 @@ if(!rows[0]) {
 out = "5C0000000000000005000004000000600200004b00000400000013000000470000040000000100000048000053006002USERNAMEREALLY6002";
     }
   }
-    out = out + "USERID00040000000000000005000004000000600200004B0000040000001300000047000004000000010000004800000A000000020002000000030000005300001C000000600200000BNICKLENGTHUSERNAMEREALLY1800010000000000000000BC0100000B00002E0000006002000000000000000000000000000067B3040000000000D044783F030000000000000000000000BC010000000053000021000000020000000B0C436F6F6B69657A69426F74731801000000000000000000000000005300001B000000030000000B0642616E63686F1801000000000000000000440000005300001D0000007D0100000B084E696B6F6E696B6F180100000000000000000034000000600000";
+  // Just send login packet only, other packet should use with token
+    out = out + "USERID00040000000000000005000004000000600200004B0000040000001300000047000004000000010000004800000A000000020002000000030000005300001C000000600200000BNICKLENGTHUSERNAMEREALLY1800010000000000000000BC0100000B00002E0000006002000000000000000000000000000067B3040000000000D044783F030000000000000000000000BC0100000000530000210000000200";
     out = replaceAll(out, "USERID", rows[0].id.padLeft(4,0));
     out = replaceAll(out, "USERNAMEREALLY", toHex(nickname));
-    out = replaceAll(out, "NICKLENGTH", nickname.length.toString(16).padLeft(2,0));
+    out = replaceAll(out, "NICKLENGTH", padLeft(nickname.length.toString(16),2,0));
     logc(nickname);
 
       if(config['debug']) {
@@ -254,7 +268,8 @@ out = "5C0000000000000005000004000000600200004b000004000000130000004700000400000
 
 //ranking submit
 app.post('/web/osu-submit-modular.php', function(req, res) {
-
+// Not completed yet
+res.send("error: disabled");
 });
 
 //get ranking
@@ -303,7 +318,7 @@ app.post('/web/osu-error.php', function(req, res) {
 
 //dummy #1(i don't know but it didn't any)
 app.get('/web/bancho_connect.php', function(req, res) {
-res.send("error: pass");
+res.send("us");
 });
 
 //dummy #2(i don't know but it didn't any)
@@ -402,7 +417,8 @@ return res.end(res.writeHead(404, 'Not in there'));
 
 
 });
-
+/*
 var server = app.listen(80, function() {
     logc('Bancho Listening on ' + server.address().port);
 });
+*/
