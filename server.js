@@ -147,7 +147,7 @@ String.prototype.startsWith = function(needle)
     return(this.indexOf(needle) == 0);
 };
 function scoreString(replayId, name, score, combo, count50, count100, count300, countMiss, countKatu, countGeki, FC, mods, avatarID, rank, timestamp){
-  return replayId + "|" + name + "|" + score + "|" + combo + "|" + count50 + "|" + count100 + "|" + count300 + "|" + countMiss + "|" + countKatu + "|" + countGeki + "|" + FC + "|" + mods + "|" + avatarID + "|" + rank + "|" + timestamp + "\r\n";
+  return replayId + "|" + name + "|" + score + "|" + combo + "|" + count50 + "|" + count100 + "|" + count300 + "|" + countMiss + "|" + countKatu + "|" + countGeki + "|" + FC + "|" + mods + "|" + avatarID + "|" + rank + "|" + timestamp + "|1\n";
 }
 
 function isInvaild(uid,upw){
@@ -275,8 +275,11 @@ res.send("error: disabled");
 //get ranking
 app.get('/web/osu-osz2-getscores.php', function(req, res) {
   console.log(req.query);
-res.write("3|false|0|0|0\r\n\r\n\r\n9.28235\r\n\r\n");
+res.write("2|false|141255|45204|7152\n0\n[bold:0,size:20]" + req.query.f + "|Powered by LPOPBancho\n9.19911\n");
 logc(req.query.us + " " + req.query.ha);
+res.write(scoreString(0, req.query.us, 0, 0,
+            0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0));
 if(isInvaild(req.query.us,req.query.ha)){
 res.write(scoreString(0, 'You', 1, 0,
             0, 10, 50, 1, 0, 0,
