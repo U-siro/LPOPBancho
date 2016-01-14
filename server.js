@@ -1,7 +1,13 @@
 // LPOPBancho Source Code
 // Copyright 2016 Castar & NekoWasHere
-// if you made any change, Plz commit them!
+// if you made any change, Please commit them!
 // For more help, read "LICENSE"
+
+// This is open source, but it is commercial software.
+// Any server should have license.
+// This is including forks, so if you don't have license,
+// You can't use this.
+// If you receive punishment by the conditions in copyright violation.
 console.log("Defining variable and modules");
 var version = "0.0.1";
 var express = require('express');
@@ -15,10 +21,9 @@ var tokentouser = new Array();
 var fs = require('fs');
 var mysql = require('mysql');
 var bodyParser = require('body-parser');
+var formidable = require("formidable");
 var SilenceStat;
-var multer  = require('multer');
-var scrupload = multer({ dest: './screenshot_uploads/' });
-var repupload = multer({ dest: './replay_uploads/' });
+var  util = require('util');
 var options = {
     key: fs.readFileSync('./ssl/key.pem'),
     cert: fs.readFileSync('./ssl/cert.pem'),
@@ -171,14 +176,7 @@ Number.prototype.padLeft = function (n,str){
 
 
 
-logc("Express.js Preparing..");
-app.use(rawBody);
-https.createServer(options,app).listen(443, function(){
-  logc('Secure HTTPS on *:443');
-});
-http.createServer(app).listen(80, function(){
-  logc('Insecure HTTP on *:80');
-});
+
 
 
 //MySQL Server
@@ -194,7 +192,17 @@ connection.connect(function(err) {
     }
 });
 
+app.use(rawBody);
+app.use(bodyParser.json({limit: '10mb'}));
+logc("Express.js Preparing..");
 
+var server = app.listen(80, function() {
+    logc('Bancho Listening on ' + server.address().port);
+});
+
+https.createServer(options,app).listen(443, function(){
+  logc('Secure HTTPS on *:443');
+});
 
 app.post('/', function(req, res) {
 var rawpost=req.rawBody;
@@ -269,12 +277,23 @@ out = "5C0000000000000005000004000000600200004b000004000000130000004700000400000
 //ranking submit
 app.post('/web/osu-submit-modular.php', function(req, res) {
 // Not completed yet
+    var form = new formidable.IncomingForm();
+console.log("parsing");
+    form.parse(req);
+
+    form.on("fileBegin", function (name, file){
+        file.path = __dirname + "/temp/" + file.name;
+    });
+
+    form.on("file", function (name, file){
+        console.log("Uploaded " + file.name);
+    });
+
 res.send("error: disabled");
 });
 
 //get ranking
 app.get('/web/osu-osz2-getscores.php', function(req, res) {
-  console.log(req.query);
 res.write("2|false|141255|45204|7152\n0\n[bold:0,size:20]" + req.query.f + "|Powered by LPOPBancho\n9.19911\n");
 logc(req.query.us + " " + req.query.ha);
 res.write(scoreString(0, req.query.us, 0, 0,
@@ -336,7 +355,7 @@ res.send("[]");
 });
 
 //screenshot
-app.post('/web/osu-screenshot.php', scrupload.any(), function(req, res) {
+app.post('/web/osu-screenshot.php', function(req, res) {
  // console.log(req.rawBody);
   var scrid = makeid();
   res.write(scrid);
@@ -421,8 +440,4 @@ return res.end(res.writeHead(404, 'Not in there'));
 
 
 });
-/*
-var server = app.listen(80, function() {
-    logc('Bancho Listening on ' + server.address().port);
-});
-*/
+

@@ -2,7 +2,7 @@
 LPOPBancho Issue Tracker and source code.
 
 # Note
-I scouted to nosue! team, but this project will continued separately. but update speed can slowed.
+I scouted to nosue! team, This project is paused. Click "Watch" to receive notice if i continue this project.
 
 # Download?
 <a href="https://raw.githubusercontent.com/Castar/LPOPBancho/master/LPOPBanchoLauncher.cmd" download>Download</a> and run it. You need to have an original and unpatched osu! client.
