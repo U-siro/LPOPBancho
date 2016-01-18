@@ -2,7 +2,8 @@
 LPOPBancho Issue Tracker and source code.
 
 # Note
-I also making to nosue!, This project is paused. Click "Watch" to receive notice if i continue this project.
+This is abandoned because clone this without my permission.
+I'll continue this, but More Version will close source.
 
 # Download?
 <a href="https://raw.githubusercontent.com/Castar/LPOPBancho/master/LPOPBanchoLauncher.cmd" download>Download</a> and run it. You need to have an original and unpatched osu! client.
